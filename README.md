@@ -1,4 +1,13 @@
-#Simple API demo.
+# Simple API demo.
 
-How to install:
- - Add this app to main django settings.py in INSTALLED_APPS list.
+Version:
+ - Python 3.6
+ - Django 1.11
+
+How to install to main django settings.py file:
+ - Add this app name to INSTALLED_APPS list
+ 
+How to install to main django urls.py file:    
+ - Import the include() function: "from django.conf.urls import url, include"
+ - Add a URL to urlpatterns:  "url(r'^simpleapi/', include('simpleapi.urls'))"
+ 
