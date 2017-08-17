@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    function getCookie(name)
+    {
+      var re = new RegExp("(?:^|; )" +
+          name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)");
+      var matches = document.cookie.match(re);
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    };
+    function onItem(data)
+    {
+      var line = document.getElementById("line");
+      var json = JSON.stringify({"txt": line.value});
+      var xhr = new XMLHttpRequest();
+
+      function onReady()
+      {
+        if (xhr.readyState != 4) return;
+        if (xhr.status == 200)
+        {
+          line.value = "";
+        }
+        else
+        {
+          alert(xhr.status + '~' + xhr.statusText);
+        }
+      };
+
+      xhr.open("post", "/simpleapi/api/uploadText/");
+      xhr.onreadystatechange = onReady;
+      xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+      xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+      xhr.send(json);
+    };
+  </script>
+</head>
+<body>
+  <a href="../admin/simpleapi/data/">Admin</a>
+  <a href="state/">State</a>
+  <hr>
+  <input type="text" id="line" value="">
+  <input type="submit" value="Send over API" onclick="onItem()">
+</body>
+</html>
